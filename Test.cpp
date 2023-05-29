@@ -80,15 +80,15 @@ TEST_CASE("Adding numbers to Ascending magical and prime container.")
     int expectedValasce[] = {2,7,8,49,97};
     int expectedValprime[] = {2,7,97};
     int i =0;
-    for (int *it = asceIt.begin(); it != asceIt.end(); it++)
-    {
-        CHECK((*it) == expectedValasce[i++]);
-    }
-    i=0;
     MagicalContainer::PrimeIterator primeIt(cont);
     for (int *it = primeIt.begin(); it != primeIt.end(); it++)
     {
         CHECK((*it) == expectedValprime[i++]);
+    }
+    i=0;
+    for (int *it = asceIt.begin(); it != asceIt.end(); it++)
+    {
+        CHECK((*it) == expectedValasce[i++]);
     }
 }
 // TEST_CASE("Checking operators AscendingIterator.")

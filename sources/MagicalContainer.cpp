@@ -43,6 +43,7 @@ int* MagicalContainer::SideCrossIterator::end() {
 MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer& cont) : cont(cont) {}
 
 int* MagicalContainer::PrimeIterator::begin() {
+    std::sort(cont.elements.begin(), cont.elements.end());
     std::vector<int> prime_nums;
     for (int elem : cont.elements) {
         if (isPrime(elem)) {
