@@ -3,6 +3,7 @@
 #include "doctest.h"
 #include "sources/MagicalContainer.hpp"
 using namespace std;
+using namespace ariel;
 
 TEST_CASE("Adding numbers to magical container and checking sizes.")
 {
@@ -23,7 +24,7 @@ TEST_CASE("Adding numbers to prime magical container and checking sizes.")
     cont.addElement(2);
     cont.addElement(97);
     cont.addElement(49);
-    PrimeIterator primeIt(cont);
+    MagicalContainer::PrimeIterator primeIt(cont);
     CHECK(cont.size()==5);
     int expectedVal[] = {7,2,97};
     int i =0;
@@ -40,7 +41,7 @@ TEST_CASE("Adding numbers to SideCross magical container and checking sizes.")
     cont.addElement(2);
     cont.addElement(97);
     cont.addElement(49);
-    SideCrossIterator sideIt(cont);
+    MagicalContainer::SideCrossIterator sideIt(cont);
     CHECK(cont.size()==5);
     int expectedVal[] = {8,49,7,97,2};
     int i =0;
@@ -57,7 +58,7 @@ TEST_CASE("Adding numbers to Ascending magical container and checking sizes.")
     cont.addElement(2);
     cont.addElement(97);
     cont.addElement(49);
-    AscendingIterator asceIt(cont);
+    MagicalContainer::AscendingIterator asceIt(cont);
     CHECK(cont.size()==5);
     int expectedVal[] = {2,7,8,49,97};
     int i =0;
@@ -74,7 +75,7 @@ TEST_CASE("Adding numbers to Ascending magical and prime container.")
     cont.addElement(2);
     cont.addElement(97);
     cont.addElement(49);
-    AscendingIterator asceIt(cont);
+    MagicalContainer::AscendingIterator asceIt(cont);
     CHECK(cont.size()==5);
     int expectedValasce[] = {2,7,8,49,97};
     int expectedValprime[] = {2,7,97};
@@ -84,7 +85,7 @@ TEST_CASE("Adding numbers to Ascending magical and prime container.")
         CHECK((*it) == expectedValasce[i++]);
     }
     i=0;
-    PrimeIterator primeIt(cont);
+    MagicalContainer::PrimeIterator primeIt(cont);
     for (int *it = primeIt.begin(); it != primeIt.end(); it++)
     {
         CHECK((*it) == expectedValprime[i++]);

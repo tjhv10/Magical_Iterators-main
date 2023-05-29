@@ -3,6 +3,7 @@
 #include "MagicalContainer.hpp"
 #include <cmath>
 #include <algorithm>
+using namespace ariel;
 
 void MagicalContainer::addElement(int elem) {
     elements.push_back(elem);
@@ -16,30 +17,32 @@ int MagicalContainer::size() const {
     return elements.size();
 }
 
-AscendingIterator::AscendingIterator(MagicalContainer& cont) : cont(cont) {}
 
-int* AscendingIterator::begin() {
+ariel::MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer &cont):cont(cont){}
+
+int* MagicalContainer::AscendingIterator::begin()
+{
     std::sort(cont.elements.begin(), cont.elements.end());
     return cont.elements.data();
 }
 
-int* AscendingIterator::end() {
+int* MagicalContainer::AscendingIterator::end() {
     return cont.elements.data() + cont.elements.size();
 }
 
-SideCrossIterator::SideCrossIterator(MagicalContainer& cont) : cont(cont) {}
+MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer& cont) : cont(cont) {}
 
-int* SideCrossIterator::begin() {
+int* MagicalContainer::SideCrossIterator::begin() {
     return cont.elements.data();
 }
 
-int* SideCrossIterator::end() {
+int* MagicalContainer::SideCrossIterator::end() {
     return cont.elements.data() + cont.elements.size();
 }
 
-PrimeIterator::PrimeIterator(MagicalContainer& cont) : cont(cont) {}
+MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer& cont) : cont(cont) {}
 
-int* PrimeIterator::begin() {
+int* MagicalContainer::PrimeIterator::begin() {
     std::vector<int> prime_nums;
     for (int elem : cont.elements) {
         if (isPrime(elem)) {
@@ -50,10 +53,10 @@ int* PrimeIterator::begin() {
     return cont.elements.data();
 }
 
-int* PrimeIterator::end() {
+int* MagicalContainer::PrimeIterator::end() {
     return cont.elements.data() + cont.elements.size();
 }
-bool PrimeIterator::isPrime(int num) {
+bool MagicalContainer::PrimeIterator::isPrime(int num) {
     if (num <= 1)
         return false;
         
