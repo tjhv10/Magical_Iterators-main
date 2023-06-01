@@ -10,12 +10,27 @@ void MagicalContainer::addElement(int elem) {
         elements.insert(elements.begin(),elem);
         return;
     }
+    
     auto it = std::lower_bound(elements.begin(), elements.end(), elem);
     elements.insert(it,elem);
+    if(PrimeIterator::isPrime(elem))
+    {
+        auto itPrime = std::lower_bound(prElem.begin(), prElem.end(), &elem);
+        prElem.insert(itPrime,&elem);
+    }
 }
 
 void MagicalContainer::removeElement(int elem) {
-    elements.erase(std::remove(elements.begin(), elements.end(), elem), elements.end());
+    if(std::find(elements.begin(), elements.end(), elem)!=elements.end())
+    {
+        elements.erase(std::remove(elements.begin(), elements.end(), elem), elements.end());
+        if(PrimeIterator::isPrime(elem))
+        prElem.erase(std::remove(prElem.begin(), prElem.end(), &elem), prElem.end());
+    }
+    else
+    {
+        throw runtime_error("element is not in container");
+    }
 }
 int MagicalContainer::size() const {
     return elements.size();
@@ -77,10 +92,10 @@ MagicalContainer::SideCrossIterator &ariel::MagicalContainer::SideCrossIterator:
     return *this;
 }
 
-MagicalContainer::SideCrossIterator &ariel::MagicalContainer::SideCrossIterator::end()
-{
-    // TODO: insert return statement here
-}
+// MagicalContainer::SideCrossIterator &ariel::MagicalContainer::SideCrossIterator::end()
+// {
+//     // TODO: insert return statement here
+// }
 
 bool ariel::MagicalContainer::SideCrossIterator::operator==(const SideCrossIterator &other) const
 {
@@ -107,10 +122,10 @@ int ariel::MagicalContainer::SideCrossIterator::operator*() const
     return *it;
 }
 
-MagicalContainer::SideCrossIterator &ariel::MagicalContainer::SideCrossIterator::operator++()
-{
-    // TODO: insert return statement here
-}
+// MagicalContainer::SideCrossIterator &ariel::MagicalContainer::SideCrossIterator::operator++()
+// {
+//     // TODO: insert return statement here
+// }
 
 //PrimeIterator
 MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer& cont) : cont(&cont){}
@@ -118,19 +133,14 @@ MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer& cont) : cont(&c
 MagicalContainer::PrimeIterator &ariel::MagicalContainer::PrimeIterator::begin()
 {
     position =0;
-    it = cont->elements.begin();
-    while (!isPrime(*it))
-    {
-        ++position;
-        ++it;
-    }
+    it = cont->prElem.begin();
     return *this;
 }
 
 MagicalContainer::PrimeIterator &ariel::MagicalContainer::PrimeIterator::end()
 {
-    it = cont->elements.end();
-    position = cont->elements.size();
+    it = cont->prElem.end();
+    position = cont->prElem.size();
     return *this;
 }
 
@@ -156,18 +166,13 @@ bool ariel::MagicalContainer::PrimeIterator::operator<(const PrimeIterator &othe
 
 int ariel::MagicalContainer::PrimeIterator::operator*() const
 {
-    return *it;
+    return *(*it);
 }
 
 MagicalContainer::PrimeIterator &ariel::MagicalContainer::PrimeIterator::operator++()
 {
     ++position;
     ++it;
-    while (position!=cont->size()&&!isPrime(*it))
-    {
-        ++position;
-        ++it;
-    }
     return *this;
 }
 

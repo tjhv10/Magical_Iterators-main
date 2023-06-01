@@ -20,6 +20,7 @@ namespace ariel{
     {
         private:
             std::vector<int> elements;
+            std::vector<int*> prElem;
         public:
             
             MagicalContainer() = default;
@@ -54,11 +55,12 @@ namespace ariel{
         {
         private:
             MagicalContainer *cont;
-            std::vector<int>::iterator it;
+            std::vector<int*>::iterator it;
             int position;
-            bool isPrime(int num);
+            
         public:
             PrimeIterator(MagicalContainer &cont);
+            static bool isPrime(int num);
             PrimeIterator &begin();
             PrimeIterator &end();
             bool operator==(const PrimeIterator &other) const;
